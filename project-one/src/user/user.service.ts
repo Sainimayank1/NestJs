@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
+import { UserDTO } from 'src/common/dto/user';
 import { LoggerService } from 'src/logger/logger.service';
-import { User } from './user.interface';
 
 @Injectable()
 export class UserService extends LoggerService {
-    protected users: User[] = [];
+    protected users: UserDTO[] = [];
 
     public getUserReq(req: Request) {
         this.debug(' getUserReq -----------------> REQ: ', req);
@@ -16,7 +16,7 @@ export class UserService extends LoggerService {
         return "User Id: " + id;
     }
 
-    public createUser(user: User): number {
+    public createUser(user: UserDTO): number {
         this.debug(' createUser -----------------> USER: ', user);
         const createdUser = { ...user, id: this.users.length + 1 };
         this.users.push(createdUser);
@@ -24,7 +24,7 @@ export class UserService extends LoggerService {
         return createdUser.id;
     }
 
-    public getUsers(): User[] {
+    public getUsers(): UserDTO[] {
         this.debug(' getUsers -----------------> USERS: ', this.users);
         return this.users;
     }
