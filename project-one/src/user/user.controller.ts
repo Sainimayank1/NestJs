@@ -12,13 +12,18 @@ export class UserController {
     }
 
     @Get(':id')
-    getUser(@Param() param: any): string {
+    getUser(@Param() param: any): UserDTO {
         const { id } = param;
-        return this.user.getUser(id);
+        try {
+            return this.user.getUser(id);
+        }
+        catch (e) {
+            throw new Error(e);
+        }
     }
 
     @Post()
-    createUser(@Body() body: UserDTO): number {
+    createUser(@Body() body: UserDTO): string {
         return this.user.createUser(body);
     }
 

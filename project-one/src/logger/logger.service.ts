@@ -11,6 +11,6 @@ export class LoggerService {
     }
 
     public success(message: string, optionalParams: object) {
-        console.error(`SUCCESS ${message}: ${JSON.stringify(optionalParams)}`);
+        console.info(`SUCCESS ${message}: ${JSON.stringify(optionalParams)}`);
     };
 }
