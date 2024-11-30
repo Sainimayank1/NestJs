@@ -1,5 +1,6 @@
 import { Body, Controller, Get, Param, ParseIntPipe, Post, Req } from '@nestjs/common';
 import { UserDTO } from 'src/common/dto/user';
+import { ValidationPipe } from 'src/validation/validation.pipe';
 import { UserService } from './user.service';
 
 @Controller('user')
@@ -17,7 +18,7 @@ export class UserController {
     }
 
     @Post()
-    createUser(@Body() body: UserDTO): string {
+    createUser(@Body(new ValidationPipe()) body: UserDTO): string {
         return this.user.createUser(body);
     }
 
