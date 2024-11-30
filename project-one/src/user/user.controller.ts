@@ -14,12 +14,7 @@ export class UserController {
     @Get(':id')
     getUser(@Param() param: any): UserDTO {
         const { id } = param;
-        try {
-            return this.user.getUser(id);
-        }
-        catch (e) {
-            throw new Error(e);
-        }
+        return this.user.getUser(id);
     }
 
     @Post()
