@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { UserDTO } from 'src/common/dto/user';
 import { LoggerService } from 'src/logger/logger.service';
 
@@ -11,12 +11,12 @@ export class UserService extends LoggerService {
         return "Request printed succesffuly";
     }
 
-    public getUser(id: string): UserDTO {
+    public getUser(id: number): UserDTO {
         this.debug(' getUser -----------------> ID: ', { id });
-        const user = this.users.find((user) => user.id === parseInt(id));
+        const user = this.users.find((user) => user.id === id);
         if (!user) {
             this.error(' User Not Found : ', { id });
-            throw new HttpException('User Not Found', HttpStatus.BAD_REQUEST);
+            throw new NotFoundException('User Not Found', { cause: 'User id not found' });
         }
         return user;
     }
@@ -33,7 +33,7 @@ export class UserService extends LoggerService {
         this.debug(' getUsers -----------------> USERS: ', this.users);
         if (this.users.length === 0) {
             this.error(' Users Not Found');
-            throw new HttpException('Users Not Found', HttpStatus.BAD_REQUEST);
+            throw new NotFoundException('Users Not Found');
         }
         return this.users;
     }
